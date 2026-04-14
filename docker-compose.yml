@@ -1,0 +1,13 @@
+services:
+  bot-backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: wifey-portfolio-backend
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "3011:3011"
+    volumes:
+      - ./data:/app/data
