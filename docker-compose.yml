@@ -11,3 +11,9 @@ services:
       - "3011:3011"
     volumes:
       - ./data:/app/data
+    networks:
+      - wifey-portfolio-net
+
+networks:
+  wifey-portfolio-net:
+    external: true
