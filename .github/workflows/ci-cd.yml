@@ -26,21 +26,6 @@ jobs:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
     steps:
-      - name: Check out code
-        uses: actions/checkout@v5
-
-      - name: Copy project to VPS
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USER }}
-          key: ${{ secrets.VPS_SSH_KEY }}
-          port: 22
-          source: "."
-          target: ~/wifey-portfolio-backend
-          overwrite: true
-          rm: false
-
       - name: Deploy on VPS
         uses: appleboy/ssh-action@v1.2.0
         with:
@@ -51,5 +36,6 @@ jobs:
           script: |
             set -eu
             cd ~/wifey-portfolio-backend
+            git pull origin main
             mkdir -p data
             docker compose up -d --build
